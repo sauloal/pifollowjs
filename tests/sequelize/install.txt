@@ -1,0 +1,9 @@
+npm install express express-generator
+node_modules/.bin/express . -f
+npm install
+
+#./bin/www
+
+npm install --save sequelize@2.0.0-rc1 sequelize-cli sqlite3
+
+node_modules/.bin/sequelize init
