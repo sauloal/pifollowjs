@@ -1,0 +1,3 @@
+# http://dalelane.co.uk/blog/?p=3152
+npm install sqlite3
+npm install https://github.com/mapbox/node-sqlite3/tarball/master
