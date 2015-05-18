@@ -1,0 +1,45 @@
+doctype html
+html(lang="en")
+    head
+        script.
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+
+            function delete_image(SRC, pi_name, filename) {
+                xmlhttp.onreadystatechange=function()
+                {
+                    console.log('State',xmlhttp.readyState,'status', xmlhttp.status);
+                    
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        console.log(SRC);
+                        console.log('READY');
+                        SRC.innerHTML='DELETED';
+                        SRC.onclick=null;
+                    }
+                    
+                }
+
+                console.log('deleting', pi_name, filename);
+                
+                xmlhttp.open("DELETE","/api/data",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("foto="+filename+"&pi_name="+pi_name);
+            }
+    body
+        #container.col
+            each val, index in data
+                strong.
+                    #{val.dataValues.pi_name} :: #{val.dataValues.filename} :: #{val.dataValues.filesize} bytes :: #{val.dataValues.createdAt}
+                button(class="btn", onclick="delete_image(this, '#{val.dataValues.pi_name}','#{val.dataValues.filename}')").
+                        Delete
+                br
+                img(src='/api/data/file/' + val.dataValues.filepath)

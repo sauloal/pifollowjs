@@ -1,0 +1,15 @@
+{
+  "name": "epiloguet",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "sqlite3": "^3.0.8",
+    "sequelize": "^2.0.5",
+    "sequelize-cli": "^1.7.0",
+    "restify": "^3.0.1",
+    "epilogue": "^0.5.1"
+  }
+}

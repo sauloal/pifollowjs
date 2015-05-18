@@ -1,0 +1,4 @@
+https://github.com/dchester/epilogue
+http://docs.sequelizejs.com/en/1.7.0/docs/models/#data-types
+http://docs.sequelizejs.com/en/1.7.0/docs/models/#configuration
+https://github.com/chriso/validator.js
