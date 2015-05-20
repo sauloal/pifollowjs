@@ -30,7 +30,7 @@ html(lang="en")
 
                 console.log('deleting', pi_name, filename);
                 
-                xmlhttp.open("DELETE","/api/data",true);
+                xmlhttp.open("DELETE","#{RNG_URL}/api/v#{API_VERSION}/data",true);
                 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                 xmlhttp.send("foto="+filename+"&pi_name="+pi_name);
             }

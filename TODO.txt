@@ -1,0 +1,25 @@
+
+1
+sudo npm install -g forever
+Use forever -w, instead of node to start your app:
+1
+$ forever -w app.js
+
+
+sudo npm install -g nodemon
+Use nodemon, instead of node:
+
+1
+$ nodemon app.js
+
+
+
+sudo npm install -g supervisor
+Use supervisor, instead of node:
+
+1
+$ supervisor app.js
+Like nodemon, supervisor also allows you to specify your own list of files to watch with the -e switch like so, just without the dot:
+
+1
+$ supervisor -e "js|ejs|node|coffee" app.js

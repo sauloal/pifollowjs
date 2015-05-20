@@ -1,35 +1,41 @@
-var funcs = require('./funcs');
-var jade  = require('jade');
+var funcs   = require('./funcs');
 
 
-function registerRoutes(app) {
+function registerRoutes(app, express) {
+    var API_URL = app.conf.RNG_URL+'/api/v'+app.conf.API_VERSION
+
     //API
     ////Data
     //////Get a list of all data
-    app.get(    '/api/data/all/:pi_name?' , function(req,res) { api_data_get(     app, req, res, {}) } );
-    app.get(    '/api/data/last/:pi_name?', function(req,res) { api_data_get(     app, req, res, {group: ['pi_name']}) } );
+    app.get(    API_URL+'/data/all/:pi_name?' , function(req,res) { api_data_get(     app, req, res, {}) } );
+    app.get(    API_URL+'/data/last/:pi_name?', function(req,res) { api_data_get(     app, req, res, {group: ['pi_name']}) } );
     //////Add data
-    app.put(    '/api/data'               , function(req,res) { api_data_put(   app, req, res) } );
+    app.put(    API_URL+'/data'               , function(req,res) { api_data_put(   app, req, res) } );
     //////Delete data
-    app.delete( '/api/data'               , function(req,res) { api_data_delete(app, req, res) } );
+    app.delete( API_URL+'/data'               , function(req,res) { api_data_delete(app, req, res) } );
     ////Ips
     //////Get a list of all IPs
-    //app.get(    '/api/ips/:pi_name?' , function(req,res) { data_get(   app, req, res) } );
+    //app.get(    API_URL+'/ips/:pi_name?' , function(req,res) { data_get(   app, req, res) } );
     //////Add IP
-    //app.put(    '/api/ips'           , function(req,res) { data_put(   app, req, res) } );
+    //app.put(    API_URL+'/ips'           , function(req,res) { data_put(   app, req, res) } );
     
 
 
     //HTML View
     ////Data
     //////View data
-    app.get(    '/data/all/:pi_name?' , function(req,res) { data_get(   app, req, res, {}) } );
-    app.get(    '/data/last/:pi_name?', function(req,res) { data_get(   app, req, res, {group: ['pi_name']}) } );
+    app.get(    app.conf.RNG_URL+'/data/all/:pi_name?' , function(req,res) { data_get(   app, req, res, {}) } );
+    app.get(    app.conf.RNG_URL+'/data/last/:pi_name?', function(req,res) { data_get(   app, req, res, {group: ['pi_name']}) } );
 
     //View ip
-    //app.get(    '/ips/all/:pi_name?' , function(req,res) { data_get(   app, req, res) } );
-    //app.get(    '/ips/last/:pi_name?', function(req,res) { data_get(   app, req, res) } );
-    
+    //app.get(    app.conf.RNG_URL+'/ips/all/:pi_name?' , function(req,res) { data_get(   app, req, res) } );
+    //app.get(    app.conf.RNG_URL+'/ips/last/:pi_name?', function(req,res) { data_get(   app, req, res) } );
+
+
+    //STATIC FILES
+    var static_folder = __dirname + '/' + app.conf.dataPath;
+    console.log( 'static folder', static_folder);
+    app.use( API_URL+'/data/file/', express.static( static_folder ) );
 }
 
 exports.registerRoutes = registerRoutes;
@@ -49,7 +55,7 @@ function  data_get(   app, request, response, filter) {
         .then(function( data ) {
             if ( data  ) {
                 console.log( 'getting data', data );
-                return response.render('data.jade', { 'data': data });
+                return response.render('data.jade', { 'data': data, 'API_VERSION': app.conf.API_VERSION, 'RNG_URL': app.conf.RNG_URL });
                 //return response.send( res );
 
             } else {
@@ -100,7 +106,7 @@ function api_data_get( app, request, response, filter ) {
 
 //http://markdawson.tumblr.com/post/18359176420/asynchronous-file-uploading-using-express-and
 function api_data_put( app, request, response ) {
-    var serverData = app.dataPath;
+    var serverData = app.conf.dataPath;
     var pi_name    = request.body.pi_name;
     var foto_name  = request.files.foto.name;
     var foto_path  = request.files.foto.path;
@@ -224,7 +230,7 @@ function api_data_put( app, request, response ) {
 
 
 function api_data_delete( app, request, response ) {
-    var serverData = app.dataPath;
+    var serverData = app.conf.dataPath;
     
     var pi_name    = request.body.pi_name;
     
