@@ -7,8 +7,8 @@ function registerRoutes(app, express) {
     //API
     ////Data
     //////Get a list of all data
-    app.get(    API_URL+'/data/all/:pi_name?' , function(req,res) { api_data_get(     app, req, res, {}) } );
-    app.get(    API_URL+'/data/last/:pi_name?', function(req,res) { api_data_get(     app, req, res, {group: ['pi_name']}) } );
+    app.get(    API_URL+'/data/all/:pi_name?' , function(req,res) { api_data_get(   app, req, res, {}) } );
+    app.get(    API_URL+'/data/last/:pi_name?', function(req,res) { api_data_get(   app, req, res, {group: ['pi_name']}) } );
     //////Add data
     app.put(    API_URL+'/data'               , function(req,res) { api_data_put(   app, req, res) } );
     //////Delete data
