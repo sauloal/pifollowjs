@@ -1,0 +1,4 @@
+*/10 * * * * sudo -u pi bash -c 'python /home/pi/bin/raspiLapseCam.py 0'
+* * * * * bash /home/pi/bin/update_ip.sh
+* * * * * bash /home/pi/bin/checkIp.sh
+

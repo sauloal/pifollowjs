@@ -1,13 +1,19 @@
 set -xeu
-PRJ=pifollowjs
-APV=1
+#CLOUD9
+URL_BASE=http://pifollowjs-sauloal.c9.io
+APV=2
 EPN=api/v${APV}
 RNG='54628'
-RNG_URL=''
 PI_NAME=piname
-if [[ ! -z "${RNG}" ]]; then
-	RNG_URL="/${RNG}"
-fi
-URL=http://${PRJ}-sauloal.c9.io${RNG_URL}
+
+#RNG_URL=''
+#if [[ ! -z "${RNG}" ]]; then
+#	RNG_URL="/${RNG}"
+#fi
+#
+#URL=${URL_BASE}${RNG_URL}
+
+URL=${URL_BASE}/${RNG}
+
 API=${URL}/${EPN}
 

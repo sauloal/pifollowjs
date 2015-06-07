@@ -1,4 +1,7 @@
 #!/bin/bash
-source conf.sh
+
+MY_PATH="`dirname \"$0\"`"
+
+source ${MY_PATH}/conf.sh
 
 curl ${URL}/data/all
