@@ -23,10 +23,10 @@ exports.loadConf = loadConf;
 
 function getRng() {
     try {
-        var data = require('fs').readFileSync('rng.cfg', 'utf8');
+        var data = require('fs').readFileSync('rng.cfg', 'utf8').trim();
         console.log('read cfg. returning data', data.trim());
         if ( data.split('\n').length > 1 ) {
-            console.log('more than one line in config');
+            console.log('more than one line in config "', data, '"');
             return false;
         }
         return data.trim();
