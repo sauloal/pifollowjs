@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "start": "IP=0.0.0.0 node index.js --verbose"
   },
   "dependencies": {
     "body-parser": "~1.12.0",

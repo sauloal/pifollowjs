@@ -53,6 +53,6 @@ app.database
   //.sync({ force: true })
   .then(function() {
     app.listen( app.conf.port, app.conf.host, function() {
-        console.log( 'Express server listening on %s:%s', app.conf.host, app.conf.port );
+        console.log( 'Express server listening on %s:%s RNG %s', app.conf.host, app.conf.port, app.conf.RNG);
     });
   });

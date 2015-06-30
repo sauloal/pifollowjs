@@ -1,10 +1,13 @@
 set -xeu
 #CLOUD9
-URL_BASE=http://pifollowjs-sauloal.c9.io
+URL_BASE=http://pifollow.aflitos.net
+#URL_BASE=http://127.0.0.1
+#URL_BASE=http://localhost
+URL_PORT=80
 APV=2
 EPN=api/v${APV}
-RNG='54628'
-PI_NAME=piname
+RNG='dc97d7355965f2d9f81130ba555510e0'
+PI_NAME=aflitos
 
 #RNG_URL=''
 #if [[ ! -z "${RNG}" ]]; then
@@ -13,7 +16,7 @@ PI_NAME=piname
 #
 #URL=${URL_BASE}${RNG_URL}
 
-URL=${URL_BASE}/${RNG}
+URL=${URL_BASE}:${URL_PORT}/${RNG}
 
 API=${URL}/${EPN}
 

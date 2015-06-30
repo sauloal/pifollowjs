@@ -4,6 +4,8 @@ var funcs   = require('./funcs');
 function registerRoutes(app, express) {
     var API_URL = app.conf.RNG_URL+'/api/v'+app.conf.API_VERSION
 
+    console.log( 'API URL', API_URL );
+
     //API
     ////Data
     //////Get a list of all data
