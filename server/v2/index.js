@@ -41,6 +41,11 @@ app.use( express.compress() );
 app.use( express.errorHandler({ dumpExceptions: true, showStack: true }));
 
 
+
+
+
+
+
 app.set('view engine', 'jade');
 
 db.createDb(app, app.conf.dbfile);
@@ -52,7 +57,32 @@ app.database
   .sync()
   //.sync({ force: true })
   .then(function() {
-    app.listen( app.conf.port, app.conf.host, function() {
-        console.log( 'Express server listening on %s:%s RNG %s', app.conf.host, app.conf.port, app.conf.RNG);
-    });
+
+    if ( app.conf.useSSL ) {
+      // http://stackoverflow.com/questions/7185074/heroku-nodejs-http-to-https-ssl-forced-redirect/23894573#23894573
+      var https    = require('https')
+      var forceSsl = function (req, res, next) {
+        if (req.headers['x-forwarded-proto'] !== 'https') {
+          return res.redirect(['https://', req.get('Host'), req.url].join(''));
+        }
+        return next();
+      };
+      app.use(forceSsl);
+
+
+      https.createServer({
+        key:  require('fs').readFileSync(app.conf.SSLkey ),
+        cert: require('fs').readFileSync(app.conf.SSLcert)
+        }, app).listen(
+	  app.conf.port,
+          app.conf.host,
+          function() {
+            console.log( 'Express server listening on %s:%s RNG %s', app.conf.host, app.conf.port, app.conf.RNG);
+          }
+        );
+    } else {
+      app.listen( app.conf.port, app.conf.host, function() {
+          console.log( 'Express server listening on %s:%s RNG %s', app.conf.host, app.conf.port, app.conf.RNG);
+      });
+    }
   });
