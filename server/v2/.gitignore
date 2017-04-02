@@ -2,3 +2,4 @@ database.sqlite
 rng.cfg
 data/
 Temp/
+node_modules_old*
